@@ -24,10 +24,14 @@ Box.prototype.setTranslate = function(x, y) {
 }
 
 //TODO: Aplicar matriz de rotação
-Box.prototype.setRotate = function(theta) {}
+Box.prototype.setRotate = function(theta) {
+	this.R = rotate(theta);
+}
 
 //TODO: Aplicar matriz de escala
-Box.prototype.setScale = function(x, y) {}
+Box.prototype.setScale = function(x, y) {
+	this.S = scale(x,y);
+}
 
 Box.prototype.draw = function(canvas = ctx) { //requer o contexto de desenho
     //pega matriz de tranformação de coordenadas canônicas para coordenadas do canvas
@@ -65,3 +69,58 @@ Box.prototype.draw = function(canvas = ctx) { //requer o contexto de desenho
 
 //TODO: Faça o objeto Circulo implementando as mesmas funcões e atributos que a caixa possui
 //      porém os valores básicos são o centro e o raio do circulo
+
+function Circle(center = [0, 0, 1], radius = 30) {
+    this.center = center;
+    this.radius = radius;
+    this.width = 300;
+    this.height =175;
+    this.T = 0; 
+    this.R = 0; 
+    this.S = 0; 
+    this.fill = white; //cor de preenchimento -> aceita cor hex, ex.: this.fill = "#4592af"
+    this.stroke = black; //cor da borda -> aceita cor hex, ex.: this.stroke = "#a34a28"
+    this.name = "";
+}
+
+Circle.prototype.setScale = function(scale_valor){
+	this.S = circleScale(this.radius,scale_valor);
+}
+
+Circle.prototype.setTranslate = function(x,y){
+	this.T = circleTranslate(x,y);
+}
+
+Circle.prototype.setRotate = function(theta){
+	this.R = circleRotate(theta);
+}
+Circle.prototype.draw = function(canvas = ctx) { //requer o contexto de desenho
+    //pega matriz de tranformação de coordenadas canônicas para coordenadas do canvas
+    canvas.lineWidth = 2; //largura da borda
+    canvas.strokeStyle = this.stroke;
+    canvas.fillStyle = this.fill;
+    
+    ctx.beginPath();
+    ctx.arc(this.center[0] + this.width ,this.center[1] + this.height,this.radius,0,Math.PI * 2, true);
+   
+    
+
+    if(this.S > 0){
+	    ctx.beginPath();
+	    ctx.arc(this.center[0] + this.width ,this.center[1] + this.height,this.S,0,Math.PI * 2, true); 
+    }
+
+    if (this.T[0] > 0) {
+    	ctx.beginPath();
+    	ctx.arc(this.T[0] ,this.T[1],this.S,0,Math.PI * 2, true); 
+
+    }
+
+    if(this.R[0] > 0){
+    	ctx.beginPath();
+    	ctx.arc(this.R[0] ,this.R[1],this.S,0,Math.PI * 2, true);
+    }
+	canvas.stroke(); //aplica cor de contorno
+
+}
+
