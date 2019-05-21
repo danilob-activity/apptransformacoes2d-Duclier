@@ -6,16 +6,35 @@ function translate(x, y) { // dado dois pontos, x e y constroi a matriz homogene
     ]; //retorna matriz 3x3
 }
 
-//TODO: dado dois pontos, x e y constroi a matriz homogenea de translação 3x3
+//TODO: dado dois pontos, x e y constroi a matriz homogenea de escala 3x3
 function scale(x, y) {
-    return //retorna matriz 3x3
+    return [
+    	[x,0,0],
+    	[0,y,0],
+    	[0,0,1]
+    ];//retorna matriz 3x3
 }
 
 //TODO: dado um angulo theta em graus constroi a matriz homogenea de rotação 3x3
 function rotate(theta) {
-    return //retorna matriz 3x3
+    return [
+    	[Math.cos(theta),Math.sin(theta),0],
+    	[Math.sin(theta),Math.cos(theta),0],
+    	[0,0,1]
+    ]; //retorna matriz 3x3
+}
+function circleScale(radius,scale_valor){
+	return radius*scale_valor;
 }
 
+function circleTranslate(x,y){
+	return[x+300,y+175];
+}
+
+function circleRotate(theta){
+	return [300*Math.cos(theta) - 175*Math.sin(theta),
+	300*Math.sin(theta) + 175*Math.cos(theta)];
+}
 function identity(v = 1) { // identidade
     return [
         [1 * v, 0, 0],
